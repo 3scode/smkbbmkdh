@@ -1,0 +1,20 @@
+# Netlify — deploy full dari Git (auto-deploy branch main).
+# Env production diisi via Site Settings → Environment variables, JANGAN commit.
+# Wajib: DATABASE_URL (Supabase pooled 6543), NEXT_PUBLIC_SUPABASE_URL,
+# NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY, AUTH_SECRET,
+# PII_ENCRYPTION_KEY, SUPABASE_JWT_SECRET. Plus: RESEND_API_KEY, TURNSTILE_*,
+# SENTRY_DSN, REVALIDATE_SECRET, CRON_SECRET, NEXT_PUBLIC_APP_URL.
+# STORAGE_PROVIDER harus "supabase" di production (filesystem Netlify ephemeral).
+
+[build]
+  command = "bun run build"
+  publish = ".next"
+
+  [[build.plugins]]
+    package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NODE_VERSION = "24"
+
+# Next.js headers() di next.config.ts (HSTS, CSP, X-Frame-Options) diteruskan
+# oleh plugin — tidak perlu _headers terpisah.

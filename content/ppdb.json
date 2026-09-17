@@ -1,0 +1,18 @@
+{
+  "biaya": {
+    "pendaftaran": 100000,
+    "spp_bulanan": 150000,
+    "seragam": 750000,
+    "kegiatan": 500000
+  },
+  "syarat": [
+    "Fotokopi KK 1 lembar",
+    "Fotokopi akta kelahiran 1 lembar",
+    "Fotokopi rapor semester 5",
+    "Pas foto 3x4 sebanyak 4 lembar"
+  ],
+  "faq": [
+    { "q": "Berapa total biaya masuk?", "a": "Lihat tabel biaya di halaman PPDB. Tersedia cicilan dan beasiswa." },
+    { "q": "Adakah beasiswa?", "a": "Ada: beasiswa tahfidz dan prestasi seni-olahraga tingkat kabupaten." }
+  ]
+}

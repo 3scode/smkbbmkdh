@@ -1,0 +1,87 @@
+# Decap CMS — SMK BBM Kandanghaur
+# Dev lokal : local_backend true → jalankan `bunx decap-server` lalu buka /admin
+# Produksi   : ganti backend ke git-gateway + aktifkan Identity di Netlify/Vercel,
+#              atau pakai GitHub backend dengan OAuth app sekolah.
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Jangan commit file ini tanpa sadar: aktif hanya saat `decap-server` jalan lokal.
+local_backend: true
+
+publish_mode: editorial_workflow
+media_folder: "public/uploads"
+public_folder: "/uploads"
+site_url: "https://smkbbm-kandanghaur.sch.id"
+display_url: "https://smkbbm-kandanghaur.sch.id"
+
+collections:
+  - name: "profil"
+    label: "Profil Sekolah"
+    files:
+      - name: "profil"
+        label: "Visi, Misi, Tujuan & Sejarah"
+        file: "content/profil.json"
+        fields:
+          - { name: "visi", label: "Visi", widget: "text" }
+          - { name: "misi", label: "Misi (7 poin)", widget: "list", min: 1, max: 10 }
+          - { name: "tujuan", label: "Tujuan (7 poin)", widget: "list", min: 1, max: 10 }
+          - { name: "sejarah", label: "Sejarah (paragraf)", widget: "list" }
+          - name: "kepsek"
+            label: "Kepala Sekolah"
+            widget: "object"
+            fields:
+              - { name: "nama", label: "Nama", widget: "string" }
+              - { name: "foto", label: "Foto (1:1)", widget: "image", required: false }
+              - { name: "sambutan", label: "Sambutan (paragraf)", widget: "list" }
+
+  - name: "situs"
+    label: "Pengaturan Situs"
+    files:
+      - name: "hero"
+        label: "Hero & Statistik"
+        file: "content/hero.json"
+        fields:
+          - { name: "title", label: "Judul hero (maks 70 char)", widget: "string" }
+          - { name: "subtitle", label: "Subjudul", widget: "text" }
+          - name: "stats"
+            label: "Statistik"
+            widget: "object"
+            fields:
+              - { name: "siswa", label: "Siswa aktif", widget: "number", value_type: "int" }
+              - { name: "guru", label: "Guru & tendik", widget: "number", value_type: "int" }
+              - { name: "dudi", label: "Mitra DUDI", widget: "number", value_type: "int" }
+              - { name: "serapan", label: "% lulusan terserap", widget: "number", value_type: "int" }
+      - name: "kontak"
+        label: "Kontak & Jam Layanan"
+        file: "content/kontak.json"
+        fields:
+          - { name: "alamat", label: "Alamat", widget: "string" }
+          - { name: "wa", label: "No. WA (format 62)", widget: "string" }
+          - { name: "email", label: "Email", widget: "string" }
+          - { name: "jam_senin_jumat", label: "Jam Senin–Jumat", widget: "string" }
+          - { name: "jam_sabtu", label: "Jam Sabtu", widget: "string" }
+
+  - name: "ppdb"
+    label: "Info PPDB"
+    files:
+      - name: "ppdb"
+        label: "Biaya, Syarat & FAQ"
+        file: "content/ppdb.json"
+        fields:
+          - name: "biaya"
+            label: "Rincian biaya (IDR)"
+            widget: "object"
+            fields:
+              - { name: "pendaftaran", label: "Pendaftaran", widget: "number", value_type: "int" }
+              - { name: "spp_bulanan", label: "SPP per bulan", widget: "number", value_type: "int" }
+              - { name: "seragam", label: "Seragam", widget: "number", value_type: "int" }
+              - { name: "kegiatan", label: "Kegiatan", widget: "number", value_type: "int" }
+          - { name: "syarat", label: "Syarat & berkas", widget: "list" }
+          - name: "faq"
+            label: "FAQ"
+            widget: "list"
+            fields:
+              - { name: "q", label: "Pertanyaan", widget: "string" }
+              - { name: "a", label: "Jawaban", widget: "text" }
